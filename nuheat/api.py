@@ -9,14 +9,15 @@ _LOGGER.setLevel(logging.DEBUG)
 
 class NuHeat(object):
 
-    def __init__(self, username, password, session_id=None):
+    def __init__(self, api, username, password, session_id=None):
         """
         Initialize a NuHeat API session
-
+        :param api: NuHeat api url
         :param username: NuHeat username
-        :param username: NuHeat password
+        :param password: NuHeat password
         :param session_id: A Session ID token to re-use to avoid re-authenticating
         """
+        self.api = api
         self.username = username
         self.password = password
         self._session_id = session_id
@@ -36,9 +37,11 @@ class NuHeat(object):
         post_data = {
             "Email": self.username,
             "Password": self.password,
-            "application": "0"
+            "Application": "0"
         }
-        data = self.request(config.AUTH_URL, method="POST", data=post_data)
+
+        authUrl = self.api + config.AUTH_URL
+        data = self.request(authUrl, method="POST", data=post_data)
         session_id = data.get("SessionId")
         if not session_id:
             raise Exception("Authentication error")

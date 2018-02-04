@@ -3,7 +3,7 @@ from setuptools import setup
 setup(
   name = 'nuheat',
   packages = ['nuheat'],
-  version = '0.3.0',
+  version = '0.3.6',
   description = 'A Python library that allows control of connected NuHeat Signature radiant floor thermostats.',
   author = 'Derek Brooks',
   author_email = 'derek@broox.com',
